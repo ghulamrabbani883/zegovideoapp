@@ -3,11 +3,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import conf from "../src/assets/conf.jpg";
 import Navbar from "./components/Navbar";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const Home = () => {
   const [RoomCode, setRoomCode] = useState("");
   const navigate = useNavigate();
 
+  const handleRoomIdClick = (e)=>{
+    e.preventDefault();
+    const id = uuidv4();
+    navigator.clipboard.writeText(id);
+    alert('Your roomId is copied to clipboard')
+  }
   const submitCode = (e) => {
     e.preventDefault();
     navigate(`/room/${RoomCode}`);
@@ -41,6 +49,9 @@ const Home = () => {
             className="text-white md:pt-12 flex flex-col items-center justify-center"
           >
             <div className=" flex flex-col justify-center items-center">
+              <div className="">
+                <button className="text-[16px] px-3 py-1 rounded-3xl bg-orange-500 hover:bg-orange-400 duration-100 ease-out font-bold" type="button" onClick={handleRoomIdClick}>Create Room Code</button>
+              </div>
               <label className="text-[30px] md:text-[40px] font-bold pt-6">
                 Enter Room Code
               </label>
